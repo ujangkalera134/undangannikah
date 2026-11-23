@@ -35,8 +35,7 @@ const DATA_UNDANGAN = {
 
     // 3. LOKASI GOOGLE MAPS
     lokasi: {
-        // Ambil link dari dalam src="..." pada menu Embed Map di Google Maps
-        embedMapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.664446431952!2d101.4452223!3d0.5037218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5ac1a27cd9011%3A0x2035b186613e1592!2sPekanbaru%2C%20Riau!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid",
+        koordinat: "1.272918,101.174144",[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span)
         // Link tombol buka aplikasi Google Maps
         directMapUrl: "https://maps.app.goo.gl/4e3BjG2a5YFzBJ1z8?g_st=ac"
     },
