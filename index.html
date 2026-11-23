@@ -305,7 +305,6 @@
     <!-- AOS Script & Pengisian Data Otomatis dari config.js -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Render seluruh data dari config.js saat halaman dimuat
         document.addEventListener("DOMContentLoaded", () => {
             const p = DATA_UNDANGAN.pengantin;
             const w = DATA_UNDANGAN.waktu;
@@ -347,8 +346,9 @@
             document.getElementById("resepsi-venue").innerText = w.tempatResepsi;
             document.getElementById("resepsi-address").innerText = w.alamatResepsi;
 
-            // Map
-            document.getElementById("map-iframe").src = l.embedMapUrl;
+            // Map (otomatis dari koordinat di config.js)
+            const koor = encodeURIComponent(l.koordinat.trim());
+            document.getElementById("map-iframe").src = `https://maps.google.com/maps?q=${koor}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
             document.getElementById("map-link").href = l.directMapUrl;
 
             // Rekening
@@ -365,7 +365,6 @@
             }
         });
 
-        // Buka Undangan
         function bukaUndangan() {
             const cover = document.getElementById('cover-overlay');
             const main = document.getElementById('main-content');
@@ -378,7 +377,6 @@
             }, 300);
         }
 
-        // Countdown Timer
         const weddingDate = new Date(DATA_UNDANGAN.waktu.tanggalCountdown).getTime();
         setInterval(function() {
             const now = new Date().getTime();
@@ -392,7 +390,6 @@
             }
         }, 1000);
 
-        // Salin Nomor Rekening
         function salinRekening() {
             const norek = DATA_UNDANGAN.rekening.nomorRekening;
             navigator.clipboard.writeText(norek).then(() => {
@@ -404,7 +401,6 @@
             });
         }
 
-        // Kirim RSVP ke WhatsApp
         function kirimWA(e) {
             e.preventDefault();
             const p = DATA_UNDANGAN.pengantin;
