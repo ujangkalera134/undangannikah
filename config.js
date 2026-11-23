@@ -5,27 +5,27 @@ const DATA_UNDANGAN = {
         anakKePria: "Putra Pertama Dari",
         ortuPria: "Bapaknya ma'i & Ibunya ma'i",
 
-        namaPanggilanWanita: "Juliet",
-        namaLengkapWanita: "Juliet Capulet, S.E",
+        namaPanggilanWanita: "Jumianto",
+        namaLengkapWanita: "Jumi",
         anakKeWanita: "Putri Kedua Dari",
-        ortuWanita: "Bapak Drs. Budi Capulet & Ibu Rina Marlina",
+        ortuWanita: "Bapak Jumi & Ibu Jumi",
 
         foto: "fotopengantin.png"
     },
 
     waktu: {
-        tanggalCountdown: "2026-12-20T08:00:00",
-        hariTanggalTampil: "Sabtu, 20 Desember 2026",
+        tanggalCountdown: "2027-03-11T08:00:00",
+        hariTanggalTampil: "Kamis, 11 Maret 2027",
 
-        tanggalAkad: "Sabtu, 20 Desember 2026",
+        tanggalAkad: "Kamis, 11 Maret 2027",
         jamAkad: "08.00 - 10.00 WIB",
-        tempatAkad: "Masjid Agung An-Nur",
-        alamatAkad: "Jl. Hangtuah Ujung, Kota Pekanbaru, Riau",
+        tempatAkad: "Jln kayangan gg paus",
+        alamatAkad: "Jl. Kayangan gang paus",
 
-        tanggalResepsi: "Sabtu, 20 Desember 2026",
+        tanggalResepsi: "Sabtu, 13 Maret 2027",
         jamResepsi: "11.00 - 15.00 WIB",
-        tempatResepsi: "Gedung Ballroom Hotel Pangeran",
-        alamatResepsi: "Jl. Jend. Sudirman No. 371, Pekanbaru, Riau"
+        tempatResepsi: "Rumah ma'i",
+        alamatResepsi: "Jl. Kayangan, Gg paus"
     },
 
     lokasi: {
