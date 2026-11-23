@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Undangan Pernikahan</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Great Vibes (Latin elegan), Playfair Display (Judul), Plus Jakarta Sans (Teks bersih) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN (Tanpa perlu install, langsung jalan di GitHub Pages) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome & AOS -->
+    <!-- Font Awesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS (Animate On Scroll) untuk animasi halus saat di-scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- Panggil File Konfigurasi Khusus -->
+    <!-- File Data Konfigurasi -->
     <script src="config.js"></script>
 
     <script>
@@ -41,12 +43,14 @@
     </script>
 
     <style>
+        /* Custom scrollbar & efek tambahan */
         body {
             background-color: #FAF7F2;
             color: #2D332F;
             overflow-x: hidden;
         }
         .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(20, 26, 22, 0.55), rgba(20, 26, 22, 0.75)), url('fotopengantin.png');
             background-size: cover;
             background-position: center;
         }
@@ -63,10 +67,11 @@
     <div id="cover-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center text-center text-white hero-bg px-6 transition-transform duration-1000 ease-in-out">
         <div class="max-w-md mx-auto space-y-5">
             <p class="uppercase tracking-[0.25em] text-xs md:text-sm text-gold font-medium">The Wedding of</p>
-            <h1 id="cover-couple" class="font-script text-6xl md:text-7xl text-white drop-shadow-md"></h1>
+            <h1 id="cover-couple" class="font-script text-6xl md:text-7xl text-white drop-shadow-md">Mempelai</h1>
             
             <div class="py-3">
                 <p class="text-xs text-gray-200 uppercase tracking-widest mb-1">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                <!-- Nama tamu otomatis berubah jika pakai parameter URL ?to=Nama+Tamu -->
                 <h2 id="guest-name" class="font-serif text-xl md:text-2xl font-semibold text-gold bg-black/30 px-5 py-2 rounded-full inline-block border border-gold/40">
                     Tamu Undangan
                 </h2>
@@ -92,7 +97,7 @@
         <section id="hero-section" class="relative min-h-screen flex flex-col items-center justify-center text-center text-white hero-bg px-6 py-20">
             <div data-aos="fade-up" data-aos-duration="1200" class="max-w-2xl mx-auto space-y-6">
                 <p class="uppercase tracking-[0.3em] text-xs md:text-sm text-gold">We Are Getting Married</p>
-                <h1 id="hero-couple" class="font-script text-6xl md:text-8xl text-white"></h1>
+                <h1 id="hero-couple" class="font-script text-6xl md:text-8xl text-white">Mempelai</h1>
                 <p id="hero-date" class="font-serif italic text-lg md:text-xl text-gray-200"></p>
 
                 <!-- Countdown Timer -->
@@ -141,7 +146,7 @@
             <!-- Foto Pengantin Utama -->
             <div data-aos="zoom-in" class="mb-12">
                 <div class="relative w-64 h-80 md:w-72 md:h-96 mx-auto rounded-t-full overflow-hidden border-4 border-gold shadow-xl">
-                    <img id="profile-photo" src="" alt="Foto Pengantin" class="w-full h-full object-cover">
+                    <img id="profile-photo" src="fotopengantin.png" alt="Foto Pengantin" class="w-full h-full object-cover">
                 </div>
             </div>
 
@@ -161,7 +166,7 @@
             </div>
         </section>
 
-        <!-- WAKTU & DENAH LOKASI -->
+        <!-- WAKTU & DENAH LOKASI (GOOGLE MAPS EMBED) -->
         <section class="py-20 px-6 bg-white border-y border-gold/20">
             <div class="max-w-4xl mx-auto text-center">
                 <div data-aos="fade-up" class="space-y-2 mb-12">
@@ -263,7 +268,7 @@
             </div>
         </section>
 
-        <!-- ==================== UCAPAN & KONFIRMASI KEHADIRAN ==================== -->
+        <!-- ==================== UCAPAN & KONFIRMASI KEHADIRAN (WHATSAPP) ==================== -->
         <section class="py-16 px-6 bg-white border-t border-gold/20">
             <div data-aos="fade-up" class="max-w-lg mx-auto glass-card p-8 rounded-2xl shadow-sm">
                 <h2 class="font-serif text-2xl font-bold text-sageDark text-center mb-2">Konfirmasi & Ucapan</h2>
@@ -302,10 +307,11 @@
 
     </main>
 
-    <!-- AOS Script & Pengisian Data Otomatis dari config.js -->
+    <!-- AOS Script & Interaktivitas -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        // Terapkan data dari config.js jika tersedia
+        if (typeof DATA_UNDANGAN !== "undefined") {
             const p = DATA_UNDANGAN.pengantin;
             const w = DATA_UNDANGAN.waktu;
             const l = DATA_UNDANGAN.lokasi;
@@ -313,20 +319,19 @@
 
             const namaPasangan = `${p.namaPanggilanPria} & ${p.namaPanggilanWanita}`;
 
-            // Title & Pasangan
             document.getElementById("page-title").innerText = `Undangan Pernikahan - ${namaPasangan}`;
             document.getElementById("cover-couple").innerText = namaPasangan;
             document.getElementById("hero-couple").innerText = namaPasangan;
             document.getElementById("footer-couple").innerText = namaPasangan;
             document.getElementById("hero-date").innerText = w.hariTanggalTampil;
 
-            // Foto Background & Profil
-            const bgStyle = `linear-gradient(to bottom, rgba(20, 26, 22, 0.55), rgba(20, 26, 22, 0.75)), url('${p.foto}')`;
-            document.getElementById("cover-overlay").style.backgroundImage = bgStyle;
-            document.getElementById("hero-section").style.backgroundImage = bgStyle;
-            document.getElementById("profile-photo").src = p.foto;
+            if (p.foto) {
+                const bgStyle = `linear-gradient(to bottom, rgba(20, 26, 22, 0.55), rgba(20, 26, 22, 0.75)), url('${p.foto}')`;
+                document.getElementById("cover-overlay").style.backgroundImage = bgStyle;
+                document.getElementById("hero-section").style.backgroundImage = bgStyle;
+                document.getElementById("profile-photo").src = p.foto;
+            }
 
-            // Detail Mempelai
             document.getElementById("groom-name").innerText = p.namaLengkapPria;
             document.getElementById("groom-child").innerText = p.anakKePria;
             document.getElementById("groom-parents").innerText = p.ortuPria;
@@ -335,7 +340,6 @@
             document.getElementById("bride-child").innerText = p.anakKeWanita;
             document.getElementById("bride-parents").innerText = p.ortuWanita;
 
-            // Jadwal Akad & Resepsi
             document.getElementById("akad-date").innerText = w.tanggalAkad;
             document.getElementById("akad-time").innerText = w.jamAkad;
             document.getElementById("akad-venue").innerText = w.tempatAkad;
@@ -346,25 +350,28 @@
             document.getElementById("resepsi-venue").innerText = w.tempatResepsi;
             document.getElementById("resepsi-address").innerText = w.alamatResepsi;
 
-            // Map (otomatis dari koordinat di config.js)
-            const koor = encodeURIComponent(l.koordinat.trim());
-            document.getElementById("map-iframe").src = `https://maps.google.com/maps?q=${koor}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
-            document.getElementById("map-link").href = l.directMapUrl;
+            if (l.koordinat) {
+                const koor = encodeURIComponent(l.koordinat.trim());
+                document.getElementById("map-iframe").src = `https://maps.google.com/maps?q=${koor}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+            }
+            if (l.directMapUrl) {
+                document.getElementById("map-link").href = l.directMapUrl;
+            }
 
-            // Rekening
             document.getElementById("bank-name").innerText = r.namaBank;
             document.getElementById("norek-text").innerText = r.nomorRekening;
             document.getElementById("bank-holder").innerText = r.atasNama;
+        }
 
-            // Nama Tamu dari Parameter URL (?to=Nama+Tamu)
-            const urlParams = new URLSearchParams(window.location.search);
-            const tamu = urlParams.get('to');
-            if (tamu) {
-                document.getElementById('guest-name').innerText = tamu;
-                document.getElementById('wa-nama').value = tamu;
-            }
-        });
+        // 1. Ambil nama tamu otomatis dari link URL (?to=Nama+Tamu)
+        const urlParams = new URLSearchParams(window.location.search);
+        const tamu = urlParams.get('to');
+        if (tamu) {
+            document.getElementById('guest-name').innerText = tamu;
+            document.getElementById('wa-nama').value = tamu;
+        }
 
+        // 2. Fungsi Buka Undangan
         function bukaUndangan() {
             const cover = document.getElementById('cover-overlay');
             const main = document.getElementById('main-content');
@@ -377,7 +384,12 @@
             }, 300);
         }
 
-        const weddingDate = new Date(DATA_UNDANGAN.waktu.tanggalCountdown).getTime();
+        // 3. Countdown Timer
+        const targetTanggal = (typeof DATA_UNDANGAN !== "undefined" && DATA_UNDANGAN.waktu.tanggalCountdown)
+            ? DATA_UNDANGAN.waktu.tanggalCountdown
+            : "2026-12-20T08:00:00";
+        const weddingDate = new Date(targetTanggal).getTime();
+
         setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
@@ -390,8 +402,9 @@
             }
         }, 1000);
 
+        // 4. Fungsi Salin Nomor Rekening
         function salinRekening() {
-            const norek = DATA_UNDANGAN.rekening.nomorRekening;
+            const norek = document.getElementById("norek-text").innerText;
             navigator.clipboard.writeText(norek).then(() => {
                 const label = document.getElementById("copy-label");
                 label.innerText = "Tersalin!";
@@ -401,10 +414,11 @@
             });
         }
 
+        // 5. Kirim RSVP ke WhatsApp
         function kirimWA(e) {
             e.preventDefault();
-            const p = DATA_UNDANGAN.pengantin;
-            const nomorWA = DATA_UNDANGAN.whatsapp.nomorTujuan;
+            const p = (typeof DATA_UNDANGAN !== "undefined") ? DATA_UNDANGAN.pengantin : { namaPanggilanPria: "Mempelai Pria", namaPanggilanWanita: "Mempelai Wanita" };
+            const nomorWA = (typeof DATA_UNDANGAN !== "undefined" && DATA_UNDANGAN.whatsapp.nomorTujuan) ? DATA_UNDANGAN.whatsapp.nomorTujuan : "6289636624087";
             const nama = document.getElementById("wa-nama").value;
             const hadir = document.getElementById("wa-hadir").value;
             const ucapan = document.getElementById("wa-ucapan").value;
