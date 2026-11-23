@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Romeo & Juliet</title>
+    
+    <!-- Google Fonts: Great Vibes (Latin elegan), Playfair Display (Judul), Plus Jakarta Sans (Teks bersih) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN (Tanpa perlu install, langsung jalan di GitHub Pages) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS (Animate On Scroll) untuk animasi halus saat di-scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        script: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        cream: '#FAF7F2',
+                        sage: '#4A5D4E',
+                        sageDark: '#354438',
+                        gold: '#C5A059',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar & efek tambahan */
+        body {
+            background-color: #FAF7F2;
+            color: #2D332F;
+            overflow-x: hidden;
+        }
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(20, 26, 22, 0.55), rgba(20, 26, 22, 0.75)), url('fotopengantin.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-sage selection:text-white">
+
+    <!-- ==================== 1. COVER / AMPLOP PEMBUKA ==================== -->
+    <div id="cover-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center text-center text-white hero-bg px-6 transition-transform duration-1000 ease-in-out">
+        <div class="max-w-md mx-auto space-y-5">
+            <p class="uppercase tracking-[0.25em] text-xs md:text-sm text-gold font-medium">The Wedding of</p>
+            <h1 class="font-script text-6xl md:text-7xl text-white drop-shadow-md">Romeo & Juliet</h1>
+            
+            <div class="py-3">
+                <p class="text-xs text-gray-200 uppercase tracking-widest mb-1">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                <!-- Nama tamu otomatis berubah jika pakai parameter URL ?to=Nama+Tamu -->
+                <h2 id="guest-name" class="font-serif text-xl md:text-2xl font-semibold text-gold bg-black/30 px-5 py-2 rounded-full inline-block border border-gold/40">
+                    Tamu Undangan
+                </h2>
+            </div>
+
+            <p class="text-xs md:text-sm text-gray-200 leading-relaxed max-w-xs mx-auto">
+                Tanpa mengurangi rasa hormat, kami mengundang Anda untuk hadir di acara pernikahan kami.
+            </p>
+
+            <div class="pt-4">
+                <button onclick="bukaUndangan()" class="bg-gold hover:bg-yellow-600 text-white font-medium text-sm px-8 py-3.5 rounded-full shadow-lg transition transform hover:scale-105 flex items-center gap-2 mx-auto">
+                    <i class="fa-regular fa-envelope-open"></i>
+                    <span>Buka Undangan</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== KONTEN UTAMA UNDANGAN ==================== -->
+    <main id="main-content" class="hidden">
+
+        <!-- HERO SECTION -->
+        <section class="relative min-h-screen flex flex-col items-center justify-center text-center text-white hero-bg px-6 py-20">
+            <div data-aos="fade-up" data-aos-duration="1200" class="max-w-2xl mx-auto space-y-6">
+                <p class="uppercase tracking-[0.3em] text-xs md:text-sm text-gold">We Are Getting Married</p>
+                <h1 class="font-script text-6xl md:text-8xl text-white">Romeo & Juliet</h1>
+                <p class="font-serif italic text-lg md:text-xl text-gray-200">Sabtu, 20 Desember 2026</p>
+
+                <!-- Countdown Timer -->
+                <div class="grid grid-cols-4 gap-2 md:gap-4 max-w-md mx-auto pt-6">
+                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3">
+                        <span id="days" class="block font-serif text-2xl md:text-3xl font-bold text-gold">00</span>
+                        <span class="text-[11px] uppercase tracking-wider text-gray-200">Hari</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3">
+                        <span id="hours" class="block font-serif text-2xl md:text-3xl font-bold text-gold">00</span>
+                        <span class="text-[11px] uppercase tracking-wider text-gray-200">Jam</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3">
+                        <span id="minutes" class="block font-serif text-2xl md:text-3xl font-bold text-gold">00</span>
+                        <span class="text-[11px] uppercase tracking-wider text-gray-200">Menit</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3">
+                        <span id="seconds" class="block font-serif text-2xl md:text-3xl font-bold text-gold">00</span>
+                        <span class="text-[11px] uppercase tracking-wider text-gray-200">Detik</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AYAT / KUTIPAN -->
+        <section class="py-16 px-6 bg-sage text-white text-center">
+            <div data-aos="fade-up" class="max-w-2xl mx-auto space-y-4">
+                <i class="fa-solid fa-heart text-gold text-xl"></i>
+                <p class="font-serif italic text-base md:text-lg leading-relaxed text-gray-100">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."
+                </p>
+                <p class="text-xs uppercase tracking-widest text-gold font-semibold">— QS. Ar-Rum: 21 —</p>
+            </div>
+        </section>
+
+        <!-- PROFIL MEMPELAI -->
+        <section class="py-20 px-6 max-w-4xl mx-auto text-center">
+            <div data-aos="fade-up" class="space-y-3 mb-12">
+                <p class="text-xs uppercase tracking-[0.25em] text-gold font-semibold">Assalamu'alaikum Wr. Wb.</p>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-sageDark">Mempelai Berbahagia</h2>
+                <p class="text-sm text-gray-600 max-w-lg mx-auto">
+                    Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:
+                </p>
+            </div>
+
+            <!-- Foto Pengantin Utama -->
+            <div data-aos="zoom-in" class="mb-12">
+                <div class="relative w-64 h-80 md:w-72 md:h-96 mx-auto rounded-t-full overflow-hidden border-4 border-gold shadow-xl">
+                    <img src="fotopengantin.png" alt="Foto Pengantin" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <!-- Nama Pria & Wanita -->
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div data-aos="fade-right" class="glass-card p-8 rounded-2xl shadow-sm">
+                    <h3 class="font-script text-4xl text-sageDark mb-2">Romeo Montague, S.Kom</h3>
+                    <p class="text-xs uppercase tracking-wider text-gold font-semibold mb-3">Putra Pertama Dari</p>
+                    <p class="text-sm text-gray-600">Bapak H. Ahmad Montague & Ibu Hj. Siti Fatimah</p>
+                </div>
+
+                <div data-aos="fade-left" class="glass-card p-8 rounded-2xl shadow-sm">
+                    <h3 class="font-script text-4xl text-sageDark mb-2">Juliet Capulet, S.E</h3>
+                    <p class="text-xs uppercase tracking-wider text-gold font-semibold mb-3">Putri Kedua Dari</p>
+                    <p class="text-sm text-gray-600">Bapak Drs. Budi Capulet & Ibu Rina Marlina</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WAKTU & DENAH LOKASI (GOOGLE MAPS EMBED) -->
+        <section class="py-20 px-6 bg-white border-y border-gold/20">
+            <div class="max-w-4xl mx-auto text-center">
+                <div data-aos="fade-up" class="space-y-2 mb-12">
+                    <p class="text-xs uppercase tracking-[0.25em] text-gold font-semibold">Save The Date</p>
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-sageDark">Rangkaian Acara</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <!-- Akad Nikah -->
+                    <div data-aos="fade-up" class="bg-cream p-8 rounded-2xl border border-gold/30 shadow-sm space-y-4">
+                        <div class="w-12 h-12 bg-sage text-white rounded-full flex items-center justify-center mx-auto text-lg">
+                            <i class="fa-solid fa-ring"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-sageDark">Akad Nikah</h3>
+                        <p class="text-sm font-medium text-gold">Sabtu, 20 Desember 2026</p>
+                        <p class="text-sm text-gray-600"><i class="fa-regular fa-clock mr-1"></i> 08.00 - 10.00 WIB</p>
+                        <hr class="border-gold/20">
+                        <p class="text-sm font-semibold text-gray-800">Masjid Agung An-Nur</p>
+                        <p class="text-xs text-gray-500">Jl. Hangtuah Ujung, Kota Pekanbaru, Riau</p>
+                    </div>
+
+                    <!-- Resepsi -->
+                    <div data-aos="fade-up" data-aos-delay="150" class="bg-cream p-8 rounded-2xl border border-gold/30 shadow-sm space-y-4">
+                        <div class="w-12 h-12 bg-sage text-white rounded-full flex items-center justify-center mx-auto text-lg">
+                            <i class="fa-solid fa-champagne-glasses"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-sageDark">Resepsi Pernikahan</h3>
+                        <p class="text-sm font-medium text-gold">Sabtu, 20 Desember 2026</p>
+                        <p class="text-sm text-gray-600"><i class="fa-regular fa-clock mr-1"></i> 11.00 - 15.00 WIB</p>
+                        <hr class="border-gold/20">
+                        <p class="text-sm font-semibold text-gray-800">Gedung Ballroom Hotel Pangeran</p>
+                        <p class="text-xs text-gray-500">Jl. Jend. Sudirman No. 371, Pekanbaru, Riau</p>
+                    </div>
+                </div>
+
+                <!-- DENAH LOKASI INTERAKTIF -->
+                <div data-aos="fade-up" class="bg-cream p-4 md:p-6 rounded-2xl border border-gold/30 shadow-sm space-y-5">
+                    <h3 class="font-serif text-xl font-bold text-sageDark">Denah Lokasi Acara</h3>
+                    
+                    <!-- Peta Google Maps Embed (Ganti link src di bawah dengan embed lokasi acaramu) -->
+                    <div class="w-full h-72 md:h-96 rounded-xl overflow-hidden shadow-inner border border-gray-200">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.664446431952!2d101.4452223!3d0.5037218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5ac1a27cd9011%3A0x2035b186613e1592!2sPekanbaru%2C%20Riau!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <!-- Tombol Navigasi Langsung ke Aplikasi Google Maps -->
+                    <div>
+                        <a href="https://maps.google.com/?q=Pekanbaru+Riau" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-2 bg-sage hover:bg-sageDark text-white text-sm font-medium px-6 py-3 rounded-full shadow transition">
+                            <i class="fa-solid fa-location-dot text-gold"></i>
+                            <span>Buka Petunjuk Arah di Google Maps</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== AMPLOP DIGITAL / TANDA KASIH ==================== -->
+        <section class="py-20 px-6 max-w-3xl mx-auto text-center">
+            <div data-aos="fade-up" class="space-y-3 mb-10">
+                <p class="text-xs uppercase tracking-[0.25em] text-gold font-semibold">Wedding Gift</p>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-sageDark">Tanda Kasih</h2>
+                <p class="text-sm text-gray-600 max-w-md mx-auto leading-relaxed">
+                    Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless melalui rekening berikut:
+                </p>
+            </div>
+
+            <!-- Kartu Rekening Bank -->
+            <div data-aos="zoom-in" class="max-w-md mx-auto bg-gradient-to-br from-sageDark to-sage text-white p-7 rounded-2xl shadow-xl relative overflow-hidden text-left border border-gold/40">
+                <!-- Hiasan lingkaran abstrak -->
+                <div class="absolute -right-10 -top-10 w-36 h-36 bg-white/5 rounded-full"></div>
+                <div class="absolute -left-10 -bottom-10 w-28 h-28 bg-gold/10 rounded-full"></div>
+
+                <div class="flex justify-between items-center mb-6">
+                    <span class="font-serif font-bold text-xl tracking-wider text-gold">BANK TRANSFER</span>
+                    <i class="fa-solid fa-credit-card text-2xl text-white/70"></i>
+                </div>
+
+                <div class="space-y-1 mb-6">
+                    <p class="text-xs text-gray-300 uppercase tracking-wider">Nomor Rekening</p>
+                    <div class="flex items-center justify-between gap-3">
+                        <span id="norek-text" class="font-mono text-2xl md:text-3xl font-bold tracking-wider">1234566790</span>
+                        <button onclick="salinRekening()" class="bg-gold hover:bg-yellow-600 text-white text-xs font-medium px-3.5 py-2 rounded-lg shadow transition flex items-center gap-1.5 shrink-0">
+                            <i class="fa-regular fa-copy"></i>
+                            <span id="copy-label">Salin</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="text-xs text-gray-300 uppercase tracking-wider">Atas Nama</p>
+                    <p class="font-serif text-lg font-semibold text-white">Calon Pengantin</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== UCAPAN & KONFIRMASI KEHADIRAN (WHATSAPP) ==================== -->
+        <section class="py-16 px-6 bg-white border-t border-gold/20">
+            <div data-aos="fade-up" class="max-w-lg mx-auto glass-card p-8 rounded-2xl shadow-sm">
+                <h2 class="font-serif text-2xl font-bold text-sageDark text-center mb-2">Konfirmasi & Ucapan</h2>
+                <p class="text-xs text-gray-500 text-center mb-6">Kirimkan doa restu dan konfirmasi kehadiran Anda langsung via WhatsApp</p>
+
+                <form onsubmit="kirimWA(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Lengkap</label>
+                        <input type="text" id="wa-nama" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-300 focus:outline-none focus:border-sage">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Konfirmasi Kehadiran</label>
+                        <select id="wa-hadir" class="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-300 focus:outline-none focus:border-sage bg-white">
+                            <option value="Hadir">Ya, Saya Akan Hadir</option>
+                            <option value="Masih Ragu">Masih Ragu</option>
+                            <option value="Maaf Tidak Bisa Hadir">Maaf, Tidak Bisa Hadir</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Ucapan & Doa</label>
+                        <textarea id="wa-ucapan" rows="3" required placeholder="Tuliskan doa terbaik untuk kedua mempelai..." class="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-300 focus:outline-none focus:border-sage"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-sage hover:bg-sageDark text-white font-medium text-sm py-3 rounded-xl shadow transition flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Kirim Ucapan via WhatsApp</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-10 px-6 bg-sageDark text-center text-white space-y-2">
+            <p class="font-script text-3xl text-gold">Romeo & Juliet</p>
+            <p class="text-xs text-gray-300">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+        </footer>
+
+    </main>
+
+    <!-- AOS Script & Interaktivitas -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Ambil nama tamu otomatis dari link URL (?to=Nama+Tamu)
+        const urlParams = new URLSearchParams(window.location.search);
+        const tamu = urlParams.get('to');
+        if (tamu) {
+            document.getElementById('guest-name').innerText = tamu;
+            document.getElementById('wa-nama').value = tamu;
+        }
+
+        // 2. Fungsi Buka Undangan
+        function bukaUndangan() {
+            const cover = document.getElementById('cover-overlay');
+            const main = document.getElementById('main-content');
+            
+            cover.style.transform = 'translateY(-100%)';
+            main.classList.remove('hidden');
+            
+            setTimeout(() => {
+                AOS.init({ once: true, duration: 800 });
+            }, 300);
+        }
+
+        // 3. Countdown Timer (Atur tanggal pernikahan di sini: Format YYYY-MM-DDTHH:MM:SS)
+        const weddingDate = new Date("2026-12-20T08:00:00").getTime();
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance > 0) {
+                document.getElementById("days").innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                document.getElementById("hours").innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                document.getElementById("minutes").innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                document.getElementById("seconds").innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+            }
+        }, 1000);
+
+        // 4. Fungsi Salin Nomor Rekening
+        function salinRekening() {
+            const norek = document.getElementById("norek-text").innerText;
+            navigator.clipboard.writeText(norek).then(() => {
+                const label = document.getElementById("copy-label");
+                label.innerText = "Tersalin!";
+                setTimeout(() => {
+                    label.innerText = "Salin";
+                }, 2000);
+            });
+        }
+
+        // 5. Kirim RSVP ke WhatsApp (Ganti nomor WA tujuan di variabel nomorWA)
+        function kirimWA(e) {
+            e.preventDefault();
+            const nomorWA = "6281234567890"; // Ganti dengan nomor WA kamu (diawali 62)
+            const nama = document.getElementById("wa-nama").value;
+            const hadir = document.getElementById("wa-hadir").value;
+            const ucapan = document.getElementById("wa-ucapan").value;
+
+            const pesan = `Halo Romeo & Juliet,%0A%0ASaya *${nama}*%0AKonfirmasi Kehadiran: *${hadir}*%0AUcapan: "${ucapan}"`;
+            window.open(`https://wa.me/${nomorWA}?text=${pesan}`, '_blank');
+        }
+    </script>
+</body>
+</html>
