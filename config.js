@@ -11,7 +11,7 @@ const DATA_UNDANGAN = {
         anakKeWanita: "Putri Kedua Dari",
         ortuWanita: "Bapak Drs. Budi Capulet & Ibu Rina Marlina",
 
-        foto: "fotopengantin.png" // Nama file foto di repo GitHub
+        foto: fotopengantin.png // Nama file foto di repo GitHub
     },
 
     // 2. WAKTU & HITUNG MUNDUR (COUNTDOWN)
